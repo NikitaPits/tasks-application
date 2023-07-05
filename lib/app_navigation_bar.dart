@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:task_list_app/common/app_style.dart';
 import 'package:task_list_app/pages/tasks/_view/tasks_page.dart';
 
+final currentRoute = StateProvider<String>((ref) => 'tasks');
+
 class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({Key? key}) : super(key: key);
 
@@ -41,18 +43,28 @@ class _NavigationBarListItem extends StatelessWidget {
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => item.url == 'tasks'
-              ? context.goNamed('${item.url}', pathParameters: {
-                  'taskNumber': (ref.read(currentTaskPage) + 1).toString()
-                })
-              : context.goNamed('${item.url}'),
+          onTap: () {
+            item.url == 'tasks'
+                ? context.goNamed('${item.url}', pathParameters: {
+                    'taskNumber': (ref.read(currentTaskPage) + 1).toString()
+                  })
+                : context.goNamed('${item.url}');
+            ref.read(currentRoute.notifier).update((state) => item.url);
+          },
           child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: item.url == ref.read(currentRoute)
+                    ? AppStyle.yellow
+                    : null),
             margin: const EdgeInsets.symmetric(horizontal: 16),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
               item.name,
               style: TextStyle(
-                color: AppStyle.lightTextColor,
+                color: item.url == ref.read(currentRoute)
+                    ? AppStyle.darkBlue
+                    : AppStyle.lightTextColor,
                 fontSize: 18,
               ),
             ),
