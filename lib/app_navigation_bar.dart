@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:task_list_app/common/app_style.dart';
+import 'package:task_list_app/pages/tasks/_view/tasks_page.dart';
 
 class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({Key? key}) : super(key: key);
@@ -35,23 +37,28 @@ class _NavigationBarListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      // onTap: () => context.go('/${item.url}', extra: {'taskNumber': 0}),
-      onTap: () => item.url == 'tasks'
-          ? context.goNamed('${item.url}', pathParameters: {'taskNumber': '1'})
-          : context.goNamed('${item.url}'),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Text(
-          item.name,
-          style: TextStyle(
-            color: AppStyle.lightTextColor,
-            fontSize: 18,
+    return Consumer(
+      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => item.url == 'tasks'
+              ? context.goNamed('${item.url}', pathParameters: {
+                  'taskNumber': (ref.read(currentTaskPage) + 1).toString()
+                })
+              : context.goNamed('${item.url}'),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Text(
+              item.name,
+              style: TextStyle(
+                color: AppStyle.lightTextColor,
+                fontSize: 18,
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

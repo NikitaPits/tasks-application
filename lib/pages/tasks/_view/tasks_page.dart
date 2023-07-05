@@ -13,10 +13,17 @@ class TasksPage extends ConsumerStatefulWidget {
 }
 
 class TasksPageState extends ConsumerState<TasksPage> {
+  PageController pageController = PageController(initialPage: 0);
+  @override
+  void initState() {
+    pageController = PageController(initialPage: ref.read(currentTaskPage));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final tasks = ref.watch(networkServiceProvider);
-    final PageController pageController = PageController(initialPage: 0);
+
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
