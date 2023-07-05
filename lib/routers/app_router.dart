@@ -14,7 +14,13 @@ final GoRouter router = GoRouter(routes: [
         return TasksPage();
       },
       routes: <RouteBase>[
-        getRoute(route: "tasks/:taskNumber", page: TasksPage(), name: 'tasks'),
+        GoRoute(
+          path: 'tasks/:taskNumber',
+          name: 'tasks',
+          builder: (context, state) => TasksPage(
+            taskNumber: state.pathParameters["taskNumber"],
+          ),
+        ),
         getRoute(route: 'projects', page: ProjectsPage()),
         getRoute(route: 'teams', page: TeamsPage()),
       ],

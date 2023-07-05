@@ -8,7 +8,11 @@ import 'package:task_list_app/service/network_service.dart';
 final currentTaskPage = StateProvider<int>((ref) => 0);
 
 class TasksPage extends ConsumerStatefulWidget {
-  const TasksPage({Key? key}) : super(key: key);
+  final String? taskNumber;
+  const TasksPage({
+    Key? key,
+    this.taskNumber,
+  }) : super(key: key);
   TasksPageState createState() => TasksPageState();
 }
 
@@ -16,8 +20,18 @@ class TasksPageState extends ConsumerState<TasksPage> {
   PageController pageController = PageController(initialPage: 0);
   @override
   void initState() {
-    pageController = PageController(initialPage: ref.read(currentTaskPage));
+    pageController = PageController(
+        initialPage: widget.taskNumber != null
+            ? (int.parse(widget.taskNumber!) - 1)
+            : ref.read(currentTaskPage));
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.taskNumber != null
+          ? ref
+              .read(currentTaskPage.notifier)
+              .update((s) => (int.parse(widget.taskNumber!) - 1))
+          : null;
+    });
   }
 
   @override
