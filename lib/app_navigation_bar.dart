@@ -37,7 +37,10 @@ class _NavigationBarListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => context.go('/${item.url}', extra: {'taskNumber': 0}),
+      // onTap: () => context.go('/${item.url}', extra: {'taskNumber': 0}),
+      onTap: () => item.url == 'tasks'
+          ? context.goNamed('${item.url}', pathParameters: {'taskNumber': '1'})
+          : context.goNamed('${item.url}'),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

@@ -23,11 +23,12 @@ class TaskListView extends StatelessWidget {
               onTap: () {
                 pageController.jumpToPage(index);
                 ref.read(currentTaskPage.notifier).update((state) => index);
-                context.go('/tasks', extra: {'taskNumber': index});
+                context.goNamed('tasks',
+                    pathParameters: {'taskNumber': (index + 1).toString()});
               },
               child: TaskListTile(
                   task: task,
-                  highlighted: ref.watch(currentTaskPage) == index.toInt()));
+                  highlighted: ref.watch(currentTaskPage) == index));
         });
       },
     );
