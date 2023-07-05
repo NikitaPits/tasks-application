@@ -23,7 +23,7 @@ class TasksPageState extends ConsumerState<TasksPage> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(32.0),
               child: Column(
                 children: [
                   UnderlinedTitleWidget(title: 'Tasks'),
