@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:task_list_app/model/task.dart';
+import 'package:task_list_app/data/model/task.dart';
 
 final networkServiceProvider = Provider<NetworkService>((ref) {
   return NetworkService();
