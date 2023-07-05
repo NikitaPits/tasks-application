@@ -5,9 +5,11 @@ class TeamsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      // TODO: labels should be in app localization file
-      child: Text('Teams'),
+    return Scaffold(
+      body: Center(
+        // TODO: labels should be in app localization file
+        child: Text('Teams'),
+      ),
     );
   }
 }
