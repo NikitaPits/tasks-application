@@ -5,11 +5,16 @@ import 'package:task_list_app/pages/tasks/local_widgets/task_details.dart';
 import 'package:task_list_app/pages/tasks/local_widgets/tasks_list.dart';
 import 'package:task_list_app/service/network_service.dart';
 
-class TasksPage extends ConsumerWidget {
-  const TasksPage({Key? key}) : super(key: key);
+final currentTaskPage = StateProvider<int>((ref) => 0);
 
+class TasksPage extends ConsumerStatefulWidget {
+  const TasksPage({Key? key}) : super(key: key);
+  TasksPageState createState() => TasksPageState();
+}
+
+class TasksPageState extends ConsumerState<TasksPage> {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final tasks = ref.watch(networkServiceProvider);
     final PageController pageController = PageController(initialPage: 0);
     return Scaffold(

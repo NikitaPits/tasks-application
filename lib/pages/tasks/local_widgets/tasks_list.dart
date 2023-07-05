@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:task_list_app/data/model/task.dart';
+import 'package:task_list_app/pages/tasks/_view/tasks_page.dart';
 import 'package:task_list_app/pages/tasks/local_widgets/task_list_tile.dart';
 
 class TaskListView extends StatelessWidget {
@@ -14,11 +16,17 @@ class TaskListView extends StatelessWidget {
       itemCount: tasks.length,
       itemBuilder: (context, index) {
         final task = tasks[index];
-        return GestureDetector(
-            onTap: () {
-              pageController.jumpToPage(index);
-            },
-            child: TaskListTile(task: task));
+        return Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          return GestureDetector(
+              onTap: () {
+                pageController.jumpToPage(index);
+                ref.read(currentTaskPage.notifier).update((state) => index);
+              },
+              child: TaskListTile(
+                  task: task,
+                  highlighted: ref.watch(currentTaskPage) == index.toInt()));
+        });
       },
     );
   }

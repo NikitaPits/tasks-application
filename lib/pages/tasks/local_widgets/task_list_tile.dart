@@ -3,9 +3,10 @@ import 'package:task_list_app/data/model/task.dart';
 import 'package:task_list_app/utils/date_format.dart';
 
 class TaskListTile extends StatelessWidget {
+  final bool highlighted;
   final Task task;
 
-  const TaskListTile({required this.task});
+  const TaskListTile({required this.task, required this.highlighted});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,9 @@ class TaskListTile extends StatelessWidget {
         children: [
           Text(
             task.title ?? '',
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: highlighted ? FontWeight.bold : FontWeight.normal),
           ),
           Text(task.dateTime is DateTime ? formatDateTime(task.dateTime!) : ''),
         ],
