@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_list_app/app_navigation_bar.dart';
+import 'package:task_list_app/view/UI/navigation_bar/app_navigation_bar.dart';
 
 // This class does not have to be used. It should be replaced with class
 // handling navigation using go_router package

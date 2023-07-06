@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:task_list_app/data/model/task.dart';
-import 'package:task_list_app/pages/tasks/_view/tasks_page.dart';
-import 'package:task_list_app/pages/tasks/local_widgets/task_list_tile.dart';
+import 'package:task_list_app/view/pages/tasks/_view/tasks_page.dart';
+import 'package:task_list_app/view/pages/tasks/local_widgets/task_list_tile.dart';
 
 class TaskListView extends StatelessWidget {
   final PageController pageController;

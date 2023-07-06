@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:task_list_app/UI/text/underlined_title.dart';
-import 'package:task_list_app/pages/tasks/local_widgets/task_details.dart';
-import 'package:task_list_app/pages/tasks/local_widgets/tasks_list.dart';
 import 'package:task_list_app/service/network_service.dart';
+import 'package:task_list_app/view/UI/text/underlined_title.dart';
+import 'package:task_list_app/view/pages/tasks/local_widgets/task_details.dart';
+import 'package:task_list_app/view/pages/tasks/local_widgets/tasks_list.dart';
 
 final currentTaskPage = StateProvider<int>((ref) => 0);
 
@@ -47,7 +48,8 @@ class TasksPageState extends ConsumerState<TasksPage> {
               padding: const EdgeInsets.all(32.0),
               child: Column(
                 children: [
-                  UnderlinedTitleWidget(title: 'Tasks'),
+                  UnderlinedTitleWidget(
+                      title: AppLocalizations.of(context)!.tasks),
                   tasks.when(data: (data) {
                     return Expanded(
                         child: TaskListView(

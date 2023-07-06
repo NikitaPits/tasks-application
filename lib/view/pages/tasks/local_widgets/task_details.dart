@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_list_app/UI/text/underlined_title.dart';
 import 'package:task_list_app/data/model/task.dart';
 import 'package:task_list_app/utils/date_format.dart';
+import 'package:task_list_app/view/UI/text/underlined_title.dart';
 
 class TaskDetailsWidget extends StatelessWidget {
   final Task task;

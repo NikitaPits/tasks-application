@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:task_list_app/common/app_style.dart';
-import 'package:task_list_app/pages/tasks/_view/tasks_page.dart';
+import 'package:task_list_app/view/pages/tasks/_view/tasks_page.dart';
 
 class AppNavigationBar extends StatelessWidget {
   final String? currentPath;
@@ -14,9 +15,9 @@ class AppNavigationBar extends StatelessWidget {
       color: AppStyle.darkBlue,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 64),
-        itemCount: navigationBarItems.length,
+        itemCount: getNavBarItems(context).length,
         itemBuilder: (context, index) => _NavigationBarListItem(
-          item: navigationBarItems[index],
+          item: getNavBarItems(context)[index],
           currentPath: currentPath ?? '',
         ),
         separatorBuilder: (context, index) => Divider(
@@ -74,12 +75,14 @@ class _NavigationBarListItem extends StatelessWidget {
   }
 }
 
-final navigationBarItems = [
-  // TODO: labels should be in app localization file
-  NavigationBarItem(name: 'Tasks', url: 'tasks'),
-  NavigationBarItem(name: 'Projects', url: 'projects'),
-  NavigationBarItem(name: 'Teams', url: 'teams'),
-];
+getNavBarItems(BuildContext context) {
+  return [
+    NavigationBarItem(name: AppLocalizations.of(context)!.tasks, url: 'tasks'),
+    NavigationBarItem(
+        name: AppLocalizations.of(context)!.projects, url: 'projects'),
+    NavigationBarItem(name: AppLocalizations.of(context)!.teams, url: 'teams'),
+  ];
+}
 
 class NavigationBarItem {
   final String name;
