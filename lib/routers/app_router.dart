@@ -8,27 +8,27 @@ import 'package:task_list_app/routers/simple_route.dart';
 
 final GoRouter router = GoRouter(routes: [
   ShellRoute(
-      routes: <RouteBase>[
-        GoRoute(
-          path: '/',
-          name: 'home',
-          builder: (BuildContext context, GoRouterState state) {
-            return TasksPage();
-          },
-          routes: <RouteBase>[
-            GoRoute(
-              path: 'tasks/:taskNumber',
-              name: 'tasks',
-              builder: (context, state) => TasksPage(
-                taskNumber: state.pathParameters["taskNumber"],
-              ),
+    routes: <RouteBase>[
+      GoRoute(
+        path: '/',
+        name: 'home',
+        builder: (BuildContext context, GoRouterState state) {
+          return TasksPage();
+        },
+        routes: <RouteBase>[
+          GoRoute(
+            path: 'tasks/:taskNumber',
+            name: 'tasks',
+            builder: (context, state) => TasksPage(
+              taskNumber: state.pathParameters["taskNumber"],
             ),
-            getRoute(route: 'projects', page: ProjectsPage(), name: 'projects'),
-            getRoute(route: 'teams', page: TeamsPage(), name: 'teams'),
-          ],
-        ),
-      ],
-      builder: (context, state, child) {
-        return NavigationWrapper(child: child, currentPath: state.fullPath);
-      }),
+          ),
+          getRoute(route: 'projects', page: ProjectsPage(), name: 'projects'),
+          getRoute(route: 'teams', page: TeamsPage(), name: 'teams'),
+        ],
+      ),
+    ],
+    builder: (context, state, child) =>
+        NavigationWrapper(child: child, currentPath: state.fullPath),
+  ),
 ]);
