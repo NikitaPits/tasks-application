@@ -5,7 +5,9 @@ import 'package:task_list_app/app_navigation_bar.dart';
 // handling navigation using go_router package
 class NavigationWrapper extends StatelessWidget {
   final Widget child;
-  const NavigationWrapper({Key? key, required this.child}) : super(key: key);
+  final String? currentPath;
+  const NavigationWrapper({Key? key, required this.child, this.currentPath})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class NavigationWrapper extends StatelessWidget {
         children: [
           ConstrainedBox(
             constraints: BoxConstraints(minWidth: 200, maxWidth: 300),
-            child: AppNavigationBar(),
+            child: AppNavigationBar(currentPath: currentPath),
           ),
           Expanded(child: child),
         ],

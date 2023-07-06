@@ -4,10 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:task_list_app/common/app_style.dart';
 import 'package:task_list_app/pages/tasks/_view/tasks_page.dart';
 
-final currentRoute = StateProvider<String>((ref) => 'tasks');
-
 class AppNavigationBar extends StatelessWidget {
-  const AppNavigationBar({Key? key}) : super(key: key);
+  final String? currentPath;
+  const AppNavigationBar({Key? key, this.currentPath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +17,7 @@ class AppNavigationBar extends StatelessWidget {
         itemCount: navigationBarItems.length,
         itemBuilder: (context, index) => _NavigationBarListItem(
           item: navigationBarItems[index],
+          currentPath: currentPath ?? '',
         ),
         separatorBuilder: (context, index) => Divider(
           color: AppStyle.mediumBlue,
@@ -31,11 +31,13 @@ class AppNavigationBar extends StatelessWidget {
 }
 
 class _NavigationBarListItem extends StatelessWidget {
+  final NavigationBarItem item;
+  final String currentPath;
   const _NavigationBarListItem({
     Key? key,
     required this.item,
+    required this.currentPath,
   }) : super(key: key);
-  final NavigationBarItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +51,17 @@ class _NavigationBarListItem extends StatelessWidget {
                     'taskNumber': (ref.read(currentTaskPage) + 1).toString()
                   })
                 : context.goNamed('${item.url}');
-            ref.read(currentRoute.notifier).update((state) => item.url);
           },
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: item.url == ref.read(currentRoute)
-                    ? AppStyle.yellow
-                    : null),
+                color: currentPath.contains(item.url) ? AppStyle.yellow : null),
             margin: const EdgeInsets.symmetric(horizontal: 16),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
               item.name,
               style: TextStyle(
-                color: item.url == ref.read(currentRoute)
+                color: currentPath.contains(item.url)
                     ? AppStyle.darkBlue
                     : AppStyle.lightTextColor,
                 fontSize: 18,

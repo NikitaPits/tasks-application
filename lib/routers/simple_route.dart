@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 getRoute({required String route, String? name, required Widget page}) {
   return GoRoute(
     path: route,
-    name: name ?? route,
+    name: name,
     pageBuilder: (context, state) {
       return CustomTransitionPage(
         key: state.pageKey,
