@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:task_list_app/common/app_style.dart';
+import 'package:task_list_app/main.dart';
 import 'package:task_list_app/view/pages/tasks/_view/tasks_page.dart';
 
 class AppNavigationBar extends StatelessWidget {
@@ -13,19 +14,38 @@ class AppNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: AppStyle.darkBlue,
-      child: ListView.separated(
-        padding: const EdgeInsets.symmetric(vertical: 64),
-        itemCount: getNavBarItems(context).length,
-        itemBuilder: (context, index) => _NavigationBarListItem(
-          item: getNavBarItems(context)[index],
-          currentPath: currentPath ?? '',
-        ),
-        separatorBuilder: (context, index) => Divider(
-          color: AppStyle.mediumBlue,
-          height: 1,
-          endIndent: 16,
-          indent: 16,
-        ),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 64),
+              itemCount: getNavBarItems(context).length,
+              itemBuilder: (context, index) => _NavigationBarListItem(
+                item: getNavBarItems(context)[index],
+                currentPath: currentPath ?? '',
+              ),
+              separatorBuilder: (context, index) => Divider(
+                color: AppStyle.mediumBlue,
+                height: 1,
+                endIndent: 16,
+                indent: 16,
+              ),
+            ),
+          ),
+          Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              return OutlinedButton(
+                  onPressed: () {
+                    ref.read(appLocale.notifier).update((state) => Locale(
+                        ref.read(appLocale) == Locale('en') ? 'ar' : 'en'));
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.changeLanguage,
+                    style: TextStyle(color: AppStyle.lightTextColor),
+                  ));
+            },
+          )
+        ],
       ),
     );
   }

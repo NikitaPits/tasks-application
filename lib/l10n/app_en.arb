@@ -3,6 +3,7 @@
    
         "projects": "Projects",
         "tasks": "Tasks",
-        "teams": "Teams"
+        "teams": "Teams",
+        "changeLanguage": "Change Language"
     
     }

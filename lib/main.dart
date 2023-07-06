@@ -6,6 +6,9 @@ import 'package:task_list_app/data/model/task.dart';
 import 'package:task_list_app/routers/app_router.dart';
 import 'package:url_strategy/url_strategy.dart';
 
+final appLocale = StateProvider<Locale>(
+  (ref) => Locale('en'),
+);
 void main() {
   setPathUrlStrategy();
   runApp(const ProviderScope(child: MyApp()));
@@ -21,22 +24,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('ar', ''),
-      ],
-      title: 'Task list App',
-      routerConfig: router,
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
+    return Consumer(
+      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        return MaterialApp.router(
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'),
+            Locale('ar'),
+          ],
+          title: 'Task list App',
+          locale: ref.watch(appLocale),
+          routerConfig: router,
+          theme: ThemeData(
+            primarySwatch: Colors.indigo,
+          ),
+        );
+      },
     );
   }
 }

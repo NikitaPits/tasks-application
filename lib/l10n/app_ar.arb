@@ -1,8 +1,8 @@
    
 {
    
-    "projects": "Teams",
-    "tasks": "Teams",
-    "teams": "Teams"
-
+    "projects": "المشاريع",
+    "tasks": "مهام",
+    "teams": "فرق",
+    "changeLanguage": "تغيير اللغة"
 }
